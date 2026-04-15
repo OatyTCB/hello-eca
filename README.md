@@ -47,7 +47,7 @@ If you later split them into separate cells, the adapter changes to gRPC. **No m
 ## Run it
 
 ```bash
-cd examples/hello-eca
+cd hello-eca
 # eca-gen/ is gitignored — regenerate from the git registry before first run.
 # GitStore clones the registry repo into ~/.eca/cache/ on first use.
 (cd services/gateway && eca generate)
