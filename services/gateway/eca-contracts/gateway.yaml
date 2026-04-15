@@ -1,0 +1,19 @@
+interface:
+  name: gateway
+  version: "1.0.0"
+  description: "Public API gateway — calls greeter on behalf of clients"
+
+types:
+  WelcomePage:
+    fields:
+      title: { type: string }
+      greeting: { type: string }
+
+operations:
+  GetWelcome:
+    description: "Fetch a welcome page for the given user"
+    method: get
+    route: /gateway/welcome/{user}
+    input:
+      user: { type: string, required: true }
+    output: { type: WelcomePage }

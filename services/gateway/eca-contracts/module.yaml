@@ -1,0 +1,15 @@
+name: gateway
+version: "1.0.0"
+team: frontend
+contract: gateway.yaml
+
+protocols:
+  rest:
+    contract: generated/openapi.yaml
+    base-path: /api/v1/gateway
+
+consumes:
+  - module: greeter
+    version: ">=1.0.0"
+    protocol: grpc
+    usage: usage/greeter.usage.yaml

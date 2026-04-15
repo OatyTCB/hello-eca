@@ -1,0 +1,13 @@
+name: greeter
+version: "1.0.0"
+team: backend
+contract: greeter.yaml
+
+protocols:
+  grpc:
+    contract: generated/greeter.proto
+  rest:
+    contract: generated/openapi.yaml
+    base-path: /api/v1/greeter
+
+consumes: []

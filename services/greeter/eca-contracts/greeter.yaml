@@ -1,0 +1,19 @@
+interface:
+  name: greeter
+  version: "1.0.0"
+  description: "A simple greeting service"
+
+types:
+  Greeting:
+    fields:
+      message: { type: string }
+      from: { type: string }
+
+operations:
+  SayHello:
+    description: "Return a greeting for the given name"
+    method: get
+    route: /greeter/hello/{name}
+    input:
+      name: { type: string, required: true }
+    output: { type: Greeting }

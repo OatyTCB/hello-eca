@@ -1,0 +1,9 @@
+version: "1.0"
+registry: "eca-registry"
+environment: local
+
+cells:
+  - ref: cells/main/cell.yaml
+
+transport:
+  default: grpc

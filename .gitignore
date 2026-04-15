@@ -1,0 +1,19 @@
+# Generated client stubs — regenerated on demand by `eca generate`.
+# Keeping these out of git means a clone only contains authored source;
+# developers run `eca generate` after cloning to produce the stubs locally.
+services/*/eca-gen/
+services/*/*/eca-gen/
+
+# Go build output
+*.exe
+*.test
+/main
+/hello-eca
+
+# Local dev environment scaffolding
+.eca-dev/
+
+# Editor scratch
+*.swp
+*~
+.DS_Store
