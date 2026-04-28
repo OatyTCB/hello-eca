@@ -7,17 +7,17 @@ import (
 	"fmt"
 )
 
-// Greeting matches the contract type. In a real project this would be
-// imported from eca-gen, but the greeter module IS the producer so it
-// defines the canonical type.
+// Greeting matches the v2 contract type. The `message` field from v1 was
+// renamed to `text`, and `locale` was added.
 type Greeting struct {
-	Message string `json:"message"`
-	From    string `json:"from"`
+	Text   string `json:"text"`
+	From   string `json:"from"`
+	Locale string `json:"locale"`
 }
 
 // SayHello implements the greeter contract's SayHello operation.
+// v2 takes `locale` as a required input.
 func SayHello(_ context.Context, request any) (any, error) {
-	// The adapter delivers the request as a map[string]any.
 	req, ok := request.(map[string]any)
 	if !ok {
 		return nil, fmt.Errorf("invalid request type")
@@ -27,9 +27,29 @@ func SayHello(_ context.Context, request any) (any, error) {
 	if name == "" {
 		name = "world"
 	}
+	locale, _ := req["locale"].(string)
+	if locale == "" {
+		return nil, fmt.Errorf("locale is required (v2 breaking change)")
+	}
 
 	return &Greeting{
-		Message: fmt.Sprintf("Hello, %s!", name),
-		From:    "greeter-module",
+		Text:   greetingFor(name, locale),
+		From:   "greeter-module",
+		Locale: locale,
 	}, nil
+}
+
+func greetingFor(name, locale string) string {
+	switch locale {
+	case "en-US", "en-GB", "en":
+		return fmt.Sprintf("Hello, %s!", name)
+	case "es":
+		return fmt.Sprintf("¡Hola, %s!", name)
+	case "fr":
+		return fmt.Sprintf("Bonjour, %s !", name)
+	case "de":
+		return fmt.Sprintf("Hallo, %s!", name)
+	default:
+		return fmt.Sprintf("Hello, %s!", name)
+	}
 }

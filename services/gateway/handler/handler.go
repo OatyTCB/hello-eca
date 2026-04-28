@@ -24,6 +24,9 @@ type Handler struct {
 
 // GetWelcome implements the gateway contract's GetWelcome operation.
 // It calls the greeter module through the generated client.
+//
+// After migrating from greeter v1 to v2, we now send `locale` (a new required
+// input) and read `text` from the response (renamed from `message`).
 func (h *Handler) GetWelcome(ctx context.Context, request any) (any, error) {
 	req, ok := request.(map[string]any)
 	if !ok {
@@ -34,17 +37,21 @@ func (h *Handler) GetWelcome(ctx context.Context, request any) (any, error) {
 	if user == "" {
 		user = "visitor"
 	}
+	locale, _ := req["locale"].(string)
+	if locale == "" {
+		locale = "en-US"
+	}
 
 	// Call the greeter module — this goes through the adapter.
 	// If both modules are in the same cell: in-process function call (no network).
 	// If they're in different cells: gRPC/HTTP call (no code change needed).
-	result, err := h.Greeter.SayHello(ctx, user)
+	result, err := h.Greeter.SayHello(ctx, user, locale)
 	if err != nil {
 		return nil, fmt.Errorf("calling greeter: %w", err)
 	}
 
 	return &WelcomePage{
 		Title:    fmt.Sprintf("Welcome, %s", user),
-		Greeting: result.Message,
+		Greeting: result.Text,
 	}, nil
 }

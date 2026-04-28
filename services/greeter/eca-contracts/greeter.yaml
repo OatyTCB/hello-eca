@@ -1,19 +1,25 @@
 interface:
   name: greeter
-  version: "1.0.0"
-  description: "A simple greeting service"
+  version: "2.0.0"
+  description: "A simple greeting service — v2 (localised greetings)"
 
 types:
   Greeting:
     fields:
-      message: { type: string }
+      # Renamed from `message` in v1. Breaking for consumers that read `message`.
+      text: { type: string }
+      # Kept from v1 — consumers that read `from` are unaffected.
       from: { type: string }
+      # New in v2. Optional on the response — consumers are not required to read it.
+      locale: { type: string }
 
 operations:
   SayHello:
-    description: "Return a greeting for the given name"
+    description: "Return a localised greeting for the given name"
     method: get
     route: /greeter/hello/{name}
     input:
       name: { type: string, required: true }
+      # New in v2 and REQUIRED — breaking for v1 consumers that don't send it.
+      locale: { type: string, required: true }
     output: { type: Greeting }

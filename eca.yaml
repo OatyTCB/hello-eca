@@ -1,2 +1,2 @@
-registry: https://github.com/OatyTCB/hello-eca.git
+registry: http://localhost:8080/hello-eca
 modules: services

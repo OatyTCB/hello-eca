@@ -1,5 +1,5 @@
 name: gateway
-version: "1.0.0"
+version: "1.1.0"
 team: frontend
 contract: gateway.yaml
 
@@ -10,6 +10,6 @@ protocols:
 
 consumes:
   - module: greeter
-    version: ">=1.0.0"
+    version: ">=2.0.0 <3.0.0"
     protocol: grpc
     usage: usage/greeter.usage.yaml

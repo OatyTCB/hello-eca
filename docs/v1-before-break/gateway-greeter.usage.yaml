@@ -1,11 +1,7 @@
-# Usage contract: gateway → greeter
-# After migrating to greeter v2: `text` replaces `message`, `locale` is now
-# a required input. `from` is still read.
-
 consumer: gateway
-consumer_version: "1.1.0"
+consumer_version: "1.0.0"
 provider: greeter
-provider_version: ">=2.0.0 <3.0.0"
+provider_version: ">=1.0.0 <2.0.0"
 protocol: grpc
 
 operations:
@@ -16,24 +12,19 @@ operations:
         name:
           type: string
           optionality: required
-        locale:
-          type: string
-          optionality: required
     response:
       fields_read:
-        - field: text
+        - field: message
           type: string
           required: true
         - field: from
           type: string
           required: true
     interactions:
-      - name: "hello world english"
+      - name: "hello world"
         given: "greeter is reachable"
         request:
           name: "world"
-          locale: "en-US"
         response:
-          text: "Hello, world!"
-          from: "greeter-module"
-          locale: "en-US"
+          message: "Hello, world!"
+          from: "greeter@v1"

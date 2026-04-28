@@ -2,7 +2,7 @@ name: main
 description: "Both modules in one cell — in-process calls, zero network overhead"
 
 modules:
-  - ref: modules/greeter/v1/module.yaml
+  - ref: modules/greeter/v2/module.yaml
   - ref: modules/gateway/v1/module.yaml
 
 resources:

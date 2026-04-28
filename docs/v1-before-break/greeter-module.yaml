@@ -1,5 +1,5 @@
 name: greeter
-version: "2.0.0"
+version: "1.0.0"
 team: backend
 contract: greeter.yaml
 
@@ -8,6 +8,6 @@ protocols:
     contract: generated/greeter.proto
   rest:
     contract: generated/openapi.yaml
-    base-path: /api/v2/greeter
+    base-path: /api/v1/greeter
 
 consumes: []
